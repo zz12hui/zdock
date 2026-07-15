@@ -8,7 +8,6 @@ struct zdockApp: App {
                 .frame(minWidth: 600, minHeight: 400)
         }
         .defaultSize(width: Config.windowWidth, height: Config.windowHeight)
-        .windowResizability(.contentMinSize)
         .commands {
             CommandGroup(replacing: .newItem) {}
         }
