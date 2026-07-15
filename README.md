@@ -2,9 +2,7 @@
 > 纯 SwiftUI 打造的 macOS 全屏应用启动器 — 搜索、点击、起飞。
 > 超小安装包，无需修改任何配置，一键拥有原版启动台
 
-<p align="center">
-<img width="2560" height="1440" alt="1bc8f1e186d440a191ff23d264a01b26" src="https://github.com/user-attachments/assets/ffc3ca4d-9917-4cc0-9f5a-fe1a3386ec18" />
-</p>
+
 
 <p align="center">
   <img src="https://img.shields.io/badge/macOS-14.0%2B-blue?logo=apple" alt="macOS">
@@ -14,6 +12,12 @@
 </p>
 
 ---
+## 截图
+<p align="center">
+<img width="2560" height="1440" alt="1bc8f1e186d440a191ff23d264a01b26" src="https://github.com/user-attachments/assets/ffc3ca4d-9917-4cc0-9f5a-fe1a3386ec18" />
+</p>
+
+
 
 ## ✨ 特性
 
