@@ -1,0 +1,7 @@
+# Build artifacts
+.build/
+zdock.app/
+
+# macOS
+.DS_Store
+__MACOSX/
