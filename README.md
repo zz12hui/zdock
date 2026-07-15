@@ -1,4 +1,3 @@
-<img width="2560" height="1440" alt="1bc8f1e186d440a191ff23d264a01b26" src="https://github.com/user-attachments/assets/4d9bf2c0-d83a-46f8-808b-53026e70f257" /># 🚀 zdock
 
 > 纯 SwiftUI 打造的 macOS 全屏应用启动器 — 搜索、点击、起飞。
 > 超小安装包，无需修改任何配置，一键拥有原版启动台
