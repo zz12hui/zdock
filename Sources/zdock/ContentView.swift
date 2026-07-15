@@ -5,16 +5,45 @@ struct ContentView: View {
     @State private var hoverId: UUID?
     @FocusState private var focused: Bool
     @State private var showSettings = false
+
     @AppStorage("layout_columns") private var columnsCount = 8
+    @AppStorage("layout_rows") private var visibleRows = 5
+    @AppStorage("theme_colorScheme") private var colorScheme = 0
+    @AppStorage("theme_accentColor") private var accentColor = "blue"
+    @AppStorage("theme_iconSize") private var iconSize: Double = 64
 
     private var columns: [GridItem] {
         Array(repeating: GridItem(.flexible(), spacing: 20), count: columnsCount)
+    }
+
+    private var scrollViewHeight: CGFloat {
+        let cellHeight = CGFloat(iconSize) + 36
+        return CGFloat(visibleRows) * cellHeight + CGFloat(visibleRows - 1) * 20
+    }
+
+    private var scheme: ColorScheme? {
+        switch colorScheme {
+        case 1: return .light
+        case 2: return .dark
+        default: return nil
+        }
+    }
+
+    private var tint: Color {
+        switch accentColor {
+        case "purple": return .purple
+        case "green": return .green
+        case "orange": return .orange
+        case "pink": return .pink
+        default: return .blue
+        }
     }
 
     var body: some View {
         VStack(spacing: 24) {
             searchBar
                 .padding(.top, 40)
+                .layoutPriority(1)
 
             if vm.filteredApps.isEmpty && !vm.searchText.isEmpty {
                 Spacer()
@@ -31,9 +60,12 @@ struct ContentView: View {
                     .padding(.horizontal, 32)
                     .padding(.bottom, 24)
                 }
+                .frame(maxHeight: scrollViewHeight)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .preferredColorScheme(scheme)
+        .tint(tint)
         .background {
             VisualEffectView()
                 .ignoresSafeArea()
@@ -90,13 +122,13 @@ struct ContentView: View {
         } label: {
             VStack(spacing: 6) {
                 Image(nsImage: app.icon)
-                    .resizable().frame(width: 64, height: 64)
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
+                    .resizable().frame(width: CGFloat(iconSize), height: CGFloat(iconSize))
+                    .clipShape(RoundedRectangle(cornerRadius: CGFloat(iconSize) * 0.22))
                     .shadow(color: .black.opacity(0.12), radius: 3, y: 1)
-                Text(app.name).font(.caption).lineLimit(1).frame(width: 80)
+                Text(app.name).font(.caption).lineLimit(1).frame(width: CGFloat(iconSize) + 16)
             }
             .padding(8)
-            .background(hoverId == app.id ? Color.white.opacity(0.1) : Color.clear)
+            .background(hoverId == app.id ? tint.opacity(0.15) : Color.clear)
             .clipShape(RoundedRectangle(cornerRadius: 10))
         }
         .buttonStyle(.plain)

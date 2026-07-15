@@ -15,10 +15,8 @@ enum Config {
     }
 
     static var windowHeight: CGFloat {
-        let cell: CGFloat = 100
-        let spacing: CGFloat = 20
-        let header: CGFloat = 140
-        return CGFloat(visibleRows) * cell + CGFloat(visibleRows - 1) * spacing + header
+        let header: CGFloat = 120
+        return CGFloat(visibleRows) * 100 + CGFloat(visibleRows - 1) * 20 + header
     }
 }
 

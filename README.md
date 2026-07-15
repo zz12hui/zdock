@@ -24,7 +24,8 @@
 - **全屏沉浸** — 磨砂玻璃背景，应用图标网格铺满屏幕，视觉干扰降到最低
 - **极速搜索** — 键入应用名或首字母，毫秒级过滤，回车即启动
 - **键盘优先** — `Esc` 隐藏窗口、`Enter` 打开应用，手不离键盘
-- **悬浮动效** — 鼠标划过图标时弹簧缩放 + 高亮，触感反馈拉满
+- **悬浮动效** — 鼠标划过图标时弹簧缩放 + 强调色高亮，触感反馈拉满
+- **主题定制** — 浅色/深色/跟随系统 + 5 种强调色 + 图标大小调节
 - **可调布局** — 列数（4–16）× 行数（2–12），窗口尺寸自动适配
 - **零依赖** — `swiftc` 直接编译，不依赖 SwiftPM / Xcode 工程
 
@@ -83,13 +84,16 @@ Sources/zdock/
 | 键 | 默认值 | 范围 | 说明 |
 |---|:---:|:---:|---|
 | `layout_columns` | `8` | 4–16 | 每行应用数 |
-| `layout_rows` | `5` | 2–12 | 默认显示行数 |
+| `layout_rows` | `5` | 2–12 | 可见行数 |
+| `theme_colorScheme` | `0` | 0–2 | 配色方案（跟随系统 / 浅色 / 深色） |
+| `theme_accentColor` | `blue` | — | 强调色（blue/purple/green/orange/pink） |
+| `theme_iconSize` | `64` | 48–96 | 图标大小（步长 8） |
 
 窗口尺寸自动计算：
 
 ```
 windowWidth  = 88 × columns  + 20 × (columns  - 1) + 64
-windowHeight = 100 × rows    + 20 × (rows    - 1) + 140
+windowHeight = 100 × rows    + 20 × (rows    - 1) + 120
 ```
 
 ---
@@ -99,16 +103,19 @@ windowHeight = 100 × rows    + 20 × (rows    - 1) + 140
 | 能力 | 实现 |
 |------|------|
 | 磨砂背景 | `NSViewRepresentable` 桥接 `NSVisualEffectView` |
-| 键盘事件 | SwiftUI 3+ `onKeyPress(.escape)` |
+| 键盘事件 | SwiftUI `onKeyPress(.escape)` |
+| 主题切换 | `preferredColorScheme` + `@AppStorage` 配色方案 |
 | 应用扫描 | `FileManager` 递归遍历 3 个目录，去重 + 字母排序 |
-| 持久化 | 自定义 `@Storage` 属性包装器 → `UserDefaults` |
+| 持久化 | `@AppStorage` / 自定义 `@Storage` → `UserDefaults` |
 | 打开应用 | `NSWorkspace.shared.openApplication(at:configuration:)` |
 
 ---
 
 ## 🗺️ 路线图
 
-- [ ] 自定义图标包 / 主题
+- [x] 主题系统（浅色/深色/跟随系统 + 5 强调色）
+- [x] 图标大小调节
+- [ ] 自定义图标包
 - [ ] Alfred 风格 Actions（文件搜索、剪贴板…）
 - [ ] 快捷键唤起 / 全局热键
 - [ ] 插件系统
